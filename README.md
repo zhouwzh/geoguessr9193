@@ -2,7 +2,7 @@
 
 Clone this repo.
 
-You will need a data path to put `/images' and a csv file containing image id, longitude and latitude.
+You will need a data path to put `/images` and a csv file containing image id, longitude and latitude.
 
 Run with
 ```bash
