@@ -1,3 +1,23 @@
+# How to use
+
+Clone this repo.
+
+You will need a data path to put `/images' and a csv file containing image id, longitude and latitude.
+
+Run with
+```bash
+python ./main.py \
+    --data /path/to/data \
+    --arch resnet50 \
+    --workers 4 \
+    --epochs 100 \
+    --checkpoint-step 1 \
+    --batch_size 64 \
+    --print_freq 10 \
+    --model_path /path/to/save \
+    --tensorboard_path /path/to/tensorboard
+```
+
 # GeoGuessr AI
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Stelath/geoguessr-ai/blob/main/notebook/GeoGuessr_AI_Demo.ipynb) ![License](https://img.shields.io/github/license/Stelath/geoguessr-ai)
