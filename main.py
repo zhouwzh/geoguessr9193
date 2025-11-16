@@ -44,8 +44,16 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH',
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
                     help='evaluate model on validation set')
 
+parser.add_argument('--model_path', default='', type=str)
+parser.add_argument('--tensorboard_path', default='', type=str)
+
 start_time = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 args = parser.parse_args()
+
+MODEL_PATH = args.model_path if args.model_path != '' else f'models'
+TENSORBOARD_PATH = args.tensorboard_path if args.tensorboard_path != '' else f'tensorboard'
+
+
 
 def fwd_pass(model, data, targets, loss_function, optimizer, train=False):
     data = data.cuda()
@@ -85,7 +93,7 @@ def test(val_loader, model, loss_function, optimizer):
     return val_acc, val_loss
 
 def train(train_loader, val_loader, model, loss_function, optimizer, epochs, start_epoch=0):
-    with open(f'models/{start_time}/model.log', 'a') as f:
+    with open(f'{MODEL_PATH}/{start_time}/model.log', 'a') as f:
         for epoch in range(start_epoch, epochs):
             model.train()
             
@@ -122,13 +130,13 @@ def train(train_loader, val_loader, model, loss_function, optimizer, epochs, sta
                         'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
                         'loss': loss
-                        }, f'models/{start_time}/model-{epoch}.pth')
+                        }, f'{MODEL_PATH}/{start_time}/model-{epoch}.pth')
 
 def main():
     global writer
-    writer = SummaryWriter(f'tensorboard/{start_time}')
+    writer = SummaryWriter(f'{TENSORBOARD_PATH}/{start_time}')
     
-    os.makedirs(f'models/{start_time}', exist_ok=True)
+    os.makedirs(f'{MODEL_PATH}/{start_time}', exist_ok=True)
     
     # traindir = os.path.join(args.data, 'train')
     # valdir = os.path.join(args.data, 'val')
