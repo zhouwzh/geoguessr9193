@@ -138,12 +138,12 @@ def main():
     
     os.makedirs(f'{MODEL_PATH}/{start_time}', exist_ok=True)
     
-    # traindir = os.path.join(args.data, 'train')
-    # valdir = os.path.join(args.data, 'val')
-    # train_dataset = GeoGuessrDataset(traindir)
-    # val_dataset = GeoGuessrDataset(valdir)
-    dataset = GeoGuessrDataset(args.data)
-    train_dataset, val_dataset = torch.utils.data.random_split(dataset, [int(len(dataset)*0.9), len(dataset) - int(len(dataset)*0.9)], generator=torch.Generator())
+    traindir = os.path.join(args.data, 'train')
+    valdir = os.path.join(args.data, 'val')
+    train_dataset = GeoGuessrDataset(traindir)
+    val_dataset = GeoGuessrDataset(valdir)
+    # dataset = GeoGuessrDataset(args.data)
+    # train_dataset, val_dataset = torch.utils.data.random_split(dataset, [int(len(dataset)*0.9), len(dataset) - int(len(dataset)*0.9)], generator=torch.Generator())
 
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=args.batch_size, shuffle=True,
