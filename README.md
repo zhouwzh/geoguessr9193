@@ -10,7 +10,7 @@ python dataset_builder_multi_label.py --file data/sample_submission.csv --images
 ```
 ```bash
 python ./main.py \
-    --data /path/to/data \
+    --data /path/to/data/output \
     --arch resnet50 \
     --workers 4 \
     --epochs 100 \
