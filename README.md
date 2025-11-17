@@ -6,6 +6,9 @@ You will need a data path to put `/images` and a csv file containing image id, l
 
 Run with
 ```bash
+python dataset_builder_multi_label.py --file data/sample_submission.csv --images data/images/ --output data/output/
+```
+```bash
 python ./main.py \
     --data /path/to/data \
     --arch resnet50 \
