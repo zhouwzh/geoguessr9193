@@ -75,13 +75,13 @@ def main():
             continue
         if randint(0, 9) == 0:
             data = get_data(coord, coord_index)
-            val_data_path = os.path.join(args.output, f'val/{coord_index-1}.png')
+            val_data_path = os.path.join(args.output, f'val/{val_count}.png')
             data[0].save(val_data_path)
             targets_val.append(data[1])
             val_count += 1
         else:
             data = get_data(coord, coord_index)
-            train_data_path = os.path.join(args.output, f'train/{coord_index-1}.png')
+            train_data_path = os.path.join(args.output, f'train/{train_count}.png')
             data[0].save(train_data_path)
             targets_train.append(data[1])
             train_count += 1
