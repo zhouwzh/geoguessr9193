@@ -18,7 +18,7 @@ args = get_args()
 targets_train = []
 targets_val = []
 
-def multi_label(num, decimals=4):
+def multi_label(num, decimals=4): # '-62.50780210154253' ->
     num_original = str(abs(float(num)))
     
     if decimals > 0:
@@ -41,9 +41,9 @@ def multi_label(num, decimals=4):
     return label
 
 def get_data(coord, coord_index):
-    lat, lon = coord[0], coord[1]
+    lat, lon = coord[1], coord[2]#lat, lon = coord[0], coord[1]
     
-    img_path = os.path.join(args.images, f'street_view_{coord_index}.jpg')
+    img_path = os.path.join(args.images, f'{coord[0]}.png')#img_path = os.path.join(args.images, f'street_view_{coord_index}.jpg')
     img = Image.open(img_path)
     
     lat_multi_label = multi_label(lat)
@@ -60,6 +60,7 @@ def main():
         for row in coords_reader:
             coords.append(row)
 
+
     
     train_data_path = os.path.join(args.output, 'train')
     os.makedirs(train_data_path, exist_ok=True)
@@ -70,15 +71,17 @@ def main():
     train_count = 0
     
     for coord_index, coord in enumerate(tqdm(coords)):
+        if coord_index == 0: # Skip header
+            continue
         if randint(0, 9) == 0:
             data = get_data(coord, coord_index)
-            val_data_path = os.path.join(args.output, f'val/street_view_{val_count}.jpg')
+            val_data_path = os.path.join(args.output, f'val/{coord[0]}.png')
             data[0].save(val_data_path)
             targets_val.append(data[1])
             val_count += 1
         else:
             data = get_data(coord, coord_index)
-            train_data_path = os.path.join(args.output, f'train/street_view_{train_count}.jpg')
+            train_data_path = os.path.join(args.output, f'train/{coord[0]}.png')
             data[0].save(train_data_path)
             targets_train.append(data[1])
             train_count += 1
